@@ -6,7 +6,7 @@
 
 ### Volume control shortcut
 
-<table align="center">
+<table align="left">
 <thead>
 <tr>
 <th>Button combination</th>
