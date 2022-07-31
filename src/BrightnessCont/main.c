@@ -16,6 +16,8 @@
 #include <signal.h>
 #include "cJSON.h"
 
+#include <mi_ao.h>
+
 //	for ev.value
 #define RELEASED	0
 #define PRESSED		1
@@ -47,6 +49,8 @@ typedef struct _KeyShmInfo {
 	void *addr;
 } KeyShmInfo;
 
+void setMiyooLum(int nLum);
+void setMiyooVol(int nVol);
 
 int	InitKeyShm(KeyShmInfo *);
 int	SetKeyShm(KeyShmInfo* info, MonitorValue key, int value);
@@ -211,7 +215,6 @@ int sigTermAll(void) {
 }
 
 
-
 void resume(void) {
 	// Send SIGCONT to suspended processes
 	if (suspendpid[0]) {
@@ -367,6 +370,41 @@ int getMiyooLum(void){
 	return dBrightness;
 }
 
+// Added volume functions
+void setMiyooVol(int nVol){
+	cJSON* request_json = NULL;
+	cJSON* itemVolume;
+
+	char sVolume[20]; 
+	
+	const char *request_body = load_file("/appconfigs/system.json");
+	request_json = cJSON_Parse(request_body);
+	itemVolume = cJSON_GetObjectItem(request_json, "vol");
+
+	int dVolume = cJSON_GetNumberValue(itemVolume);
+	sprintf(sVolume, "%d", dVolume);
+	
+	
+	cJSON_SetNumberValue(itemVolume, nVol);
+
+	FILE *file = fopen("/appconfigs/system.json", "w");	
+	char *test = cJSON_Print(request_json);	
+	fputs(test, file);
+	fclose(file); 	
+}
+
+int getMiyooVol(void){
+	cJSON* request_json = NULL;
+	cJSON* itemVolume;
+	
+	const char *request_body = load_file("/appconfigs/system.json");
+	request_json = cJSON_Parse(request_body);
+	itemVolume = cJSON_GetObjectItem(request_json, "vol");
+	int dVolume = cJSON_GetNumberValue(itemVolume);
+		
+	return dVolume;
+}
+
 
 
 #define	BUTTON_A	KEY_SPACE
@@ -432,6 +470,20 @@ int main() {
 	}
 
 	SetBrightness(brightness_value);
+	
+	// Check current volume value
+	int volume_value = 20;
+	
+	volume_value = getMiyooVol();
+			
+	if (volume_value > 20) {
+		volume_value = 20;
+	} else if (volume_value < 0) {
+		volume_value = 0;
+	}
+
+	MI_AO_SetVolume(0, volume_value * 3 - 60);
+	setMiyooVol(volume_value);
 	
 	int keyNotMenuPressed=0;
 	int comboKey=0;
@@ -691,7 +743,23 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 				}
 			
 			}
-		}					
+		}
+		
+		// Volume shortcuts
+		if (start_pressed & l2_pressed) {
+			if (volume_value >= 1) {
+				volume_value--;
+				MI_AO_SetVolume(0, volume_value * 3 - 60);
+				setMiyooVol(volume_value);
+			}
+		}
+		if (start_pressed & r2_pressed) {
+			if (volume_value <= 19) {
+				volume_value++;
+				MI_AO_SetVolume(0, volume_value * 3 - 60);
+				setMiyooVol(volume_value);
+			}
+		}						
 			
 	}
 	
