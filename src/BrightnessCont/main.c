@@ -686,7 +686,7 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 		
 		if (select_pressed & l2_pressed) {
 		//	start_pressed = select_pressed = l2_pressed = 0;
-			if(file_exists(".altBrightShortcut")==0){	
+			if(file_exists(".altBrightShortcut") == 1){	
 				if (brightness_value >= 1){
 					brightness_value--;
 					if (brightness_value > 2){
@@ -701,7 +701,7 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 		}
 		if (menu_pressed & down_pressed) {
 		//	start_pressed = select_pressed = l2_pressed = 0;
-			if(file_exists(".altBrightShortcut")==1){
+			if(file_exists(".altBrightShortcut") == 0){
 			
 				if (brightness_value >= 1){
 					brightness_value--;
@@ -717,7 +717,7 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 		}	
 
 		if (select_pressed & r2_pressed) {
-			if (file_exists(".altBrightShortcut")==0) {
+			if (file_exists(".altBrightShortcut") == 1) {
 				if (brightness_value <= 8){
 					brightness_value++;
 					if (brightness_value > 2){
@@ -731,7 +731,7 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 		}	
 		if (menu_pressed & up_pressed) {
 		//	start_pressed = select_pressed = r2_pressed = 0;
-			if (file_exists(".altBrightShortcut")==1){
+			if (file_exists(".altBrightShortcut") == 0){
 				if (brightness_value <= 8){
 					brightness_value++;
 					if (brightness_value > 2){
@@ -746,14 +746,14 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 		}
 		
 		// Volume shortcuts
-		if (start_pressed & l2_pressed) {
+		if (menu_pressed & left_pressed) {
 			if (volume_value >= 1) {
 				volume_value--;
 				MI_AO_SetVolume(0, volume_value * 3 - 60);
 				setMiyooVol(volume_value);
 			}
 		}
-		if (start_pressed & r2_pressed) {
+		if (menu_pressed & right_pressed) {
 			if (volume_value <= 19) {
 				volume_value++;
 				MI_AO_SetVolume(0, volume_value * 3 - 60);

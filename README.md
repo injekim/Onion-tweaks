@@ -4,7 +4,7 @@
 
 ## brightnessCont
 
-### Volume control shortcut
+### Better brightness + volume control shortcut
 
 <table align="left">
 <thead>
@@ -16,7 +16,12 @@
 </thead>
 <tbody>
 <tr>
-<td><kbd>START</kbd> + <kbd>L2</kbd> / <kbd>R2</kbd></td>
+<td><kbd>Menu</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd></td>
+<td>Adjust Brightness</td>
+<td><em>Always</em></td>
+</tr>
+<tr>
+<td><kbd>Menu</kbd> + <kbd>←</kbd> / <kbd>→</kbd></td>
 <td>Adjust Volume</td>
 <td><em>Always</em></td>
 </tr>
