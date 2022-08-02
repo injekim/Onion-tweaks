@@ -282,8 +282,6 @@ void rumble(uint32_t val) {
 		}
 }
 
-
-
 void SetRawBrightness(int val) {  // val = 0-100
     int fd = open("/sys/class/pwm/pwmchip0/pwm0/duty_cycle", O_WRONLY);
     if (fd>=0) {
@@ -300,6 +298,17 @@ void SetBrightness(int value) {  // value = 0-10
     KeyShmInfo	info;
     InitKeyShm(&info);
 	SetKeyShm(&info, MONITOR_BRIGHTNESS, value);
+	UninitKeyShm(&info);
+}
+
+// Set volume value
+void SetVolume(int value) {  // value = 0-20
+	MI_AO_SetVolume(0, value * 3 - 60);
+	setMiyooVol(value);
+	
+	KeyShmInfo	info;
+	InitKeyShm(&info);
+	SetKeyShm(&info, MONITOR_VOLUME, value * 3 - 60);
 	UninitKeyShm(&info);
 }
 
@@ -482,8 +491,7 @@ int main() {
 		volume_value = 0;
 	}
 
-	MI_AO_SetVolume(0, volume_value * 3 - 60);
-	setMiyooVol(volume_value);
+	SetVolume(volume_value);
 	
 	int keyNotMenuPressed=0;
 	int comboKey=0;
@@ -741,7 +749,6 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 					SetBrightness(brightness_value);	
 				
 				}
-			
 			}
 		}
 		
@@ -749,18 +756,17 @@ system("cd /mnt/SDCARD/.tmp_update/; ./lastGame; cd /tmp/; value=$(cat romName.t
 		if (menu_pressed & left_pressed) {
 			if (volume_value >= 1) {
 				volume_value--;
-				MI_AO_SetVolume(0, volume_value * 3 - 60);
-				setMiyooVol(volume_value);
+
+				SetVolume(volume_value);
 			}
 		}
 		if (menu_pressed & right_pressed) {
 			if (volume_value <= 19) {
 				volume_value++;
-				MI_AO_SetVolume(0, volume_value * 3 - 60);
-				setMiyooVol(volume_value);
+
+				SetVolume(volume_value);
 			}
 		}						
-			
 	}
 	
 	close(input_fd);
