@@ -115,14 +115,7 @@ int main(void) {
 	// 640x480, HW to HW blit, 1:1 crisp pixels, rightside up
 	SDL_Surface* video = SDL_SetVideoMode(640,480, 32, SDL_HWSURFACE);
 	SDL_Surface* screen = SDL_CreateRGBSurface(SDL_HWSURFACE, 640,480, 32, 0,0,0,0);
-	
-	// SDL_Surface* image0 = IMG_Load("chargingState0.png");
-	// SDL_Surface* image1 = IMG_Load("chargingState1.png");
-	// SDL_Surface* image2 = IMG_Load("chargingState2.png");
-	// SDL_Surface* image3 = IMG_Load("chargingState3.png");
-	// SDL_Surface* image4 = IMG_Load("chargingState4.png");
-	// SDL_Surface* image5 = IMG_Load("chargingState5.png");
-	
+
 	SDL_Surface *images[MAX_IMAGE_NO];
 	
 	for (int i = 0; i < n_frame_count; i++) {
@@ -136,50 +129,6 @@ int main(void) {
 
 	SDL_Event event;
 		
-	// for (int i = 1; i < 21; ++i){
-	// 	SDL_BlitSurface(image0, NULL, screen, NULL);
-	// 	SDL_BlitSurface(screen, NULL, video, NULL); 
-	// 	SDL_Flip(video);
-	// 	usleep(50000);
-	// 	
-	// 	SDL_BlitSurface(image1, NULL, screen, NULL);
-	// 	SDL_BlitSurface(screen, NULL, video, NULL); 
-	// 	SDL_Flip(video);
-	// 	usleep(50000);	
-	// 	
-	// 	SDL_BlitSurface(image2, NULL, screen, NULL);
-	// 	SDL_BlitSurface(screen, NULL, video, NULL); 
-	// 	SDL_Flip(video);
-	// 	usleep(50000);	
-	// 	
-	// 	SDL_BlitSurface(image3, NULL, screen, NULL);
-	// 	SDL_BlitSurface(screen, NULL, video, NULL); 
-	// 	SDL_Flip(video);
-	// 	usleep(50000);	
-	// 	
-	// 	SDL_BlitSurface(image4, NULL, screen, NULL);
-	// 	SDL_BlitSurface(screen, NULL, video, NULL); 
-	// 	SDL_Flip(video);
-	// 	usleep(50000);	
-	// 	
-	// 	SDL_BlitSurface(image5, NULL, screen, NULL);
-	// 	SDL_BlitSurface(screen, NULL, video, NULL); 
-	// 	SDL_Flip(video);
-	// 	usleep(50000);	
-	// 	
-	// 	checkCharging();
-	// 	if (is_charging == 0){
-	// 		break;
-	// 	}
-	// 	
-	// 	if(SDL_PollEvent(&event)){
-	// 		if ((event.type==SDL_KEYDOWN)&&(event.key.keysym.sym == 0)){
-	// 			run = 0;
-	// 			break;
-	// 		}
-	// 	}
-	// }
-	
 	for (int i = 0; i < n_frame_count * 3; i++) {
 		for (int i = 0; i < n_frame_count; i++) {
 			SDL_BlitSurface(images[i], NULL, screen, NULL);
