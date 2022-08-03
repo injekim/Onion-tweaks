@@ -29,10 +29,10 @@
 - Place **chargingState** and **chargingState.json** files in the **.tmp_update** folder
 - Edit **chargingState.json** to change length and speed of charging animation
 
-  | Name        | Default Value | Description            |
-  | :---------- | :------------ | :--------------------- |
-  | frame_count | 6             | Total number of frames |
-  | frame_delay | 50000         | Delay between frames   |
+  | Name        | Default Value | Description                    |
+  | :---------- | :------------ | :----------------------------- |
+  | frame_count | 6             | Total number of frames(max 60) |
+  | frame_delay | 50000         | Delay between frames           |
 
 #### Image file names should follow this naming convention
 

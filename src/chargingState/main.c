@@ -15,7 +15,7 @@
 #include "sys/ioctl.h"
 #include "cJSON.h"
 
-#define MAX_IMAGE_NO 30
+#define MAX_IMAGE_NO 60
 
 bool file_exists (char *filename) {
 	struct stat buffer;
