@@ -4,27 +4,36 @@
 
 ## brightnessCont
 
-### Better brightness + volume control shortcut
+### Added features
 
-<table align="left">
-<thead>
-<tr>
-<th>Button combination</th>
-<th>Action</th>
-<th><em>Active...</em></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><kbd>Menu</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd></td>
-<td>Adjust Brightness</td>
-<td><em>Always</em></td>
-</tr>
-<tr>
-<td><kbd>Menu</kbd> + <kbd>←</kbd> / <kbd>→</kbd></td>
-<td>Adjust Volume</td>
-<td><em>Always</em></td>
-</tr>
-<tr>
-</tbody>
-</table>
+- Digital Volume control
+- Better shortcut key combinations
+
+| Button combination                            | Action            | Active... |
+| :-------------------------------------------- | :---------------- | :-------- |
+| <kbd>Menu</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> | Adjust Brightness | Always    |
+| <kbd>Menu</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Adjust Volume     | Always    |
+
+### Usage
+
+- Place the **brightnessCont** file in the **.tmp_update** folder
+
+## chargingState
+
+### Added features
+
+- Configurable frame count & animation speed
+
+### Usage
+
+- Place the **chargingState** file in the **.tmp_update** folder
+- Edit **chargingState.json** to change length and speed of charging animation
+
+  | Name        | Default Value | Description            |
+  | :---------- | :------------ | :--------------------- |
+  | frame_count | 6             | Total number of frames |
+  | frame_delay | 50000         | Delay between frames   |
+
+- name image files as chargingState**NUMBER**.png
+  > Example: chargingState0.png, chargingState1.png
+- Place image files in the **.tmp_update** folder
