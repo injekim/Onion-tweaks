@@ -16,7 +16,7 @@
 
 ### Usage
 
-- Place the **brightnessCont** file in the **.tmp_update** folder
+- Place **brightnessCont** file in the **.tmp_update** folder
 
 ## chargingState
 
@@ -26,7 +26,7 @@
 
 ### Usage
 
-- Place the **chargingState** file in the **.tmp_update** folder
+- Place **chargingState** and **chargingState.json** files in the **.tmp_update** folder
 - Edit **chargingState.json** to change length and speed of charging animation
 
   | Name        | Default Value | Description            |
@@ -34,6 +34,7 @@
   | frame_count | 6             | Total number of frames |
   | frame_delay | 50000         | Delay between frames   |
 
-- name image files as chargingState**NUMBER**.png
-  > Example: chargingState0.png, chargingState1.png
-- Place image files in the **.tmp_update** folder
+#### Image file names should follow this naming convention
+
+- chargingState**NUMBER**.png
+  > Ex. chargingState0.png, chargingState1.png
