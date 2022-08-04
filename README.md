@@ -9,10 +9,10 @@
 - Digital Volume control
 - Better shortcut key combinations
 
-| Button combination                            | Action            | Active... |
-| :-------------------------------------------- | :---------------- | :-------- |
-| <kbd>Menu</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> | Adjust Brightness | Always    |
-| <kbd>Menu</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Adjust Volume     | Always    |
+  | Button combination                            | Action            | Active... |
+  | :-------------------------------------------- | :---------------- | :-------- |
+  | <kbd>Menu</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> | Adjust Brightness | Always    |
+  | <kbd>Menu</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Adjust Volume     | Always    |
 
 ### Usage
 
