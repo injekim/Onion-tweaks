@@ -4,7 +4,7 @@
 
 ## FavImgFix
 
-### Added features
+### Features
 
 - Fixes the issue of images not showing up in favourites list
 
