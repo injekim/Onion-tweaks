@@ -2,21 +2,15 @@
 
 > _Little tweaks on Onion_
 
-## brightnessCont
+## FavImgFix
 
 ### Added features
 
-- Digital Volume control
-- Better shortcut key combinations
-
-  | Button combination                            | Action            | Active... |
-  | :-------------------------------------------- | :---------------- | :-------- |
-  | <kbd>Menu</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> | Adjust Brightness | Always    |
-  | <kbd>Menu</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Adjust Volume     | Always    |
+- Fixes the issue of images not showing up in favourites list
 
 ### Usage
 
-- Place **brightnessCont** in **.tmp_update** folder
+- Place **FavImgFix** and **updater** in **.tmp_update** folder
 
 ## chargingState
 
@@ -38,3 +32,19 @@
 
 - chargingState<b>\#</b>.png
   > Ex. chargingState0.png, chargingState1.png
+
+## brightnessCont
+
+### Added features
+
+- Digital Volume control
+- Better shortcut key combinations
+
+  | Button combination                            | Action            | Active... |
+  | :-------------------------------------------- | :---------------- | :-------- |
+  | <kbd>Menu</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> | Adjust Brightness | Always    |
+  | <kbd>Menu</kbd> + <kbd>←</kbd> / <kbd>→</kbd> | Adjust Volume     | Always    |
+
+### Usage
+
+- Place **brightnessCont** in **.tmp_update** folder

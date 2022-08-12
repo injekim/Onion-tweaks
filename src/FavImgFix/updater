@@ -1,0 +1,160 @@
+#!/bin/sh
+
+# init_lcd
+cat /proc/ls
+sleep 0.25
+
+/mnt/SDCARD/miyoo/app/audioserver &
+
+# init charger detection
+if [ ! -f /sys/devices/gpiochip0/gpio/gpio59/direction ]; then
+	echo 59 > /sys/class/gpio/export
+	echo in > /sys/devices/gpiochip0/gpio/gpio59/direction
+fi
+
+# init backlight
+echo 0 > /sys/class/pwm/pwmchip0/export
+echo 800 > /sys/class/pwm/pwmchip0/pwm0/period
+echo 80 > /sys/class/pwm/pwmchip0/pwm0/duty_cycle
+echo 1 > /sys/class/pwm/pwmchip0/pwm0/enable
+ 
+ 
+cd /mnt/SDCARD/.tmp_update/
+./checkCharge
+
+if [ -f /tmp/.isCharging ] ; then
+cd /mnt/SDCARD/.tmp_update/
+./chargingState
+fi
+
+cd /mnt/SDCARD/.tmp_update/
+./bootScreen "Boot"
+
+cd /mnt/SDCARD/.tmp_update/
+./brightnessCont &
+./ADC &
+./FavImgFix &
+
+#cd /mnt/SDCARD/App/Screenshot
+#./screenshot &
+
+#Load current time
+sTime=$(cat currentTime.txt)
+#Add 4 hours to the current time
+sTime=$(($sTime + 14400))
+sTime="@${sTime}"
+$(date +%s -s ${sTime})
+# Save current time
+rm ./currentTime.txt
+date +%s > currentTime.txt
+
+# Init
+rm /mnt/SDCARD/.tmp_update/.offOrder
+HOME=/mnt/SDCARD/RetroArch/
+
+if [ -f /mnt/SDCARD/App/OnionLauncher/data/.enabled ] ; then
+	cd /mnt/SDCARD/.tmp_update/
+	./lastGame
+fi
+
+touch /tmp/no_charging_ui
+
+while true; do
+	while [ -f /tmp/cmd_to_run_launcher.sh ] ; do
+		
+		###############
+		# GAME LAUNCH #
+		###############
+
+		if  [ ! -f /mnt/SDCARD/.tmp_update/.menuActivity ] ; then
+			if  [ -f /tmp/cmd_to_run_launcher.sh ] ; then
+				
+				# TIMER INIT 
+				cd /mnt/SDCARD/App/PlayActivity
+				./playActivity "init"
+		
+				# Launch
+				cd /mnt/SDCARD/RetroArch
+				. /tmp/cmd_to_run_launcher.sh
+				# TIMER END 
+				cd /mnt/SDCARD/.tmp_update/
+				./lastGame
+				cd /tmp/
+				value=$(cat romName.txt);
+				cd /mnt/SDCARD/App/PlayActivity
+				./playActivity "$value"	
+				
+				if  [ -f /mnt/SDCARD/.tmp_update/.offOrder ] ; then
+					cd /mnt/SDCARD/.tmp_update/
+					./bootScreen "End_Save" 
+				fi
+			fi
+		fi
+		
+		rm /tmp/cmd_to_run_launcher.sh
+		rm /mnt/SDCARD/.tmp_update/.menuActivity
+		
+		# Onion launcher
+		cd /mnt/SDCARD/.tmp_update/
+		LD_PRELOAD="/mnt/SDCARD/miyoo/lib/libpadsp.so" ./onionLauncher
+		
+		if [ -f /mnt/SDCARD/.tmp_update/.menuActivity ] ; then
+			cd /mnt/SDCARD/App/PlayActivity/
+			./playActivityUI
+		fi	
+
+		if  [ -f /mnt/SDCARD/.tmp_update/.offOrder ] ; then
+			cd /mnt/SDCARD/.tmp_update/
+			./bootScreen "End"
+			
+		fi
+
+		# Free memory
+		cd /mnt/SDCARD/.tmp_update
+		./freemma
+
+	done
+	
+	touch /tmp/.MainUIMode
+	
+	while [ -f /tmp/.MainUIMode ] ; do
+		# MainUI	
+		cd /mnt/SDCARD/.tmp_update
+		./mainUiBatPerc
+		cd /mnt/SDCARD/miyoo/app
+		LD_PRELOAD="/mnt/SDCARD/miyoo/lib/libpadsp.so" ./MainUI
+
+		if  [ -f /mnt/SDCARD/.tmp_update/.offOrder ] ; then
+			mv /mnt/SDCARD/Imgs /mnt/SDCARD/Saves/CurrentProfile/saves/PlayActivityBackup/Imgs		
+			cd /mnt/SDCARD/.tmp_update/
+			./bootScreen "End"
+			sleep 10
+		fi
+		
+		if [ -f /tmp/cmd_to_run.sh ] ; then
+		
+			chmod a+x /tmp/cmd_to_run.sh
+			/tmp/cmd_to_run.sh
+			rm /tmp/cmd_to_run.sh
+			sync
+		fi	
+		
+		if  [ -f /mnt/SDCARD/.tmp_update/.offOrder ] ; then
+			mv /mnt/SDCARD/Imgs /mnt/SDCARD/Saves/CurrentProfile/saves/PlayActivityBackup/Imgs		
+			cd /mnt/SDCARD/.tmp_update/
+			./bootScreen "End_Save"
+		fi	
+		
+		# Free memory
+		cd /mnt/SDCARD/.tmp_update
+		./freemma
+	done
+	
+	if [ -f /mnt/SDCARD/App/OnionLauncher/data/.enabled ] ; then
+		cd /mnt/SDCARD/.tmp_update/
+		./lastGame
+	fi
+
+done
+
+
