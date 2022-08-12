@@ -11,7 +11,7 @@
 ### Usage
 
 - Place **FavImgFix** and **updater** in **.tmp_update** folder
-- Patch applies everytime you reboot
+- Patch applies every time you reboot
 
 ## chargingState
 
